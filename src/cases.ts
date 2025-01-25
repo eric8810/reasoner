@@ -1,3 +1,4 @@
+import { novelDoc } from "./novel.doc";
 import { weatherDoc } from "./tools.doc";
 
 export const programingCases = [
@@ -99,7 +100,7 @@ What would be the most appropriate approach for this layout?`,
     id: "7",
     name: "Weather API",
     query: `
-  最近的气温适合去北京还是深圳？
+  最近的天气适合去北京还是深圳？
 
   我们有以下天气 API 文档：
   ${weatherDoc()}
@@ -112,7 +113,9 @@ What would be the most appropriate approach for this layout?`,
 export const documentationCases = [
   {
     id: "1",
-    name: "Weather API Documentation",
-    query: `I'm trying to understand the Weather API documentation. Can you help me understand how to use it?`,
+    name: "Document Translation",
+    query: `用古中文的风格重写以下的内容：
+    ${novelDoc.harryPotter}
+    `,
   },
 ];

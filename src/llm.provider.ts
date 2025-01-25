@@ -44,3 +44,15 @@ export const Siliconflow = {
     },
   },
 };
+
+export const Distill = {
+  name: "Distill",
+  models: {
+    Qwen: {
+      deepseek_r1_distill_qwen_32b: {
+        model_name: "bartowski/deepseek-r1-distill-qwen-32b",
+        max_tokens: 4096,
+      },
+    },
+  },
+};
