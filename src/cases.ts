@@ -1,4 +1,6 @@
-export const cases = [
+import { weatherDoc } from "./tools.doc";
+
+export const programingCases = [
   {
     id: "1",
     name: "Vue.js Reactivity Issue",
@@ -92,5 +94,25 @@ The data changes frequently. Should I switch to getServerSideProps? What are the
 </div>
 
 What would be the most appropriate approach for this layout?`,
+  },
+  {
+    id: "7",
+    name: "Weather API",
+    query: `
+  最近的气温适合去北京还是深圳？
+
+  我们有以下天气 API 文档：
+  ${weatherDoc()}
+
+  生成解决这个问题的可以一次运行的python代码，只返回代码，不要其他文本。
+  `,
+  },
+];
+
+export const documentationCases = [
+  {
+    id: "1",
+    name: "Weather API Documentation",
+    query: `I'm trying to understand the Weather API documentation. Can you help me understand how to use it?`,
   },
 ];

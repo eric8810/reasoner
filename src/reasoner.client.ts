@@ -38,6 +38,27 @@ export class ReasonerClient {
       const response = await this.client.chat.completions.create({
         model: options.model || "deepseek-reasoner",
         messages: messages,
+        max_tokens: options.max_tokens || 1,
+        stream: true,
+        ...options,
+      });
+
+      return response as Stream<OpenAI.Chat.Completions.ChatCompletionChunk> & {
+        _request_id?: string | null;
+      };
+    } catch (error) {
+      if (error instanceof OpenAI.APIError) {
+        throw new Error(`DeepSeek API error: ${error.message}`);
+      }
+      throw error;
+    }
+  }
+
+  async simplify(messages: Message[], options: Partial<ReasoningRequest> = {}) {
+    try {
+      const response = await this.client.chat.completions.create({
+        model: options.model || "deepseek-reasoner",
+        messages: messages,
         max_tokens: options.max_tokens || 8192,
         stream: true,
         ...options,

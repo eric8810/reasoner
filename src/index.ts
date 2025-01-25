@@ -5,6 +5,7 @@ import { stdout } from "process";
 import { Siliconflow } from "./llm.provider";
 import { ActionerClient } from "./actioner.client";
 import { weatherDoc } from "./tools.doc";
+import { programingCases } from "./cases";
 
 console.log("Hello TypeScript!");
 process.env.NODE_NO_WARNINGS = "1";
@@ -58,8 +59,27 @@ const reasoning = async (query: string) => {
       );
     }
   }
+
+  console.log(beautify("Simplifying reasoning...", "cyan"));
+  const simplified = await reasoner.simplify([
+    {
+      role: "user",
+      content: `总结下面的思考过程：
+      ${reason}`,
+    },
+  ]);
+
+  let simpleReason = "";
+  for await (const chunk of simplified) {
+    if ((chunk.choices[0].delta as any).content !== null) {
+      simpleReason += (chunk.choices[0].delta as any).content || "";
+      process.stdout.write(
+        beautify((chunk.choices[0].delta as any).content || "", "magenta")
+      );
+    }
+  }
   console.log(beautify("\n Reasoning complete!", "magenta"));
-  return { reason, content };
+  return { reason, content, simpleReason };
 };
 
 const actionWithReason = async (query: string, reason: string) => {
@@ -121,21 +141,15 @@ const action = async (query: string) => {
 };
 
 const main = async () => {
-  const query = `
-  最近的气温适合去北京还是深圳？
-
-  我们有以下天气 API 文档：
-  ${weatherDoc()}
-
-  生成解决这个问题的可以一次运行的python代码，只返回代码，不要其他文本。
-  `;
+  const query = programingCases[6].query;
 
   const useReason = process.argv.includes("--reason");
 
   if (useReason) {
-    const { reason, content } = await reasoning(query);
+    const { reason, content, simpleReason } = await reasoning(query);
+
     console.log("-----------------> action with reason");
-    const actionResultWithReason = await actionWithReason(query, reason);
+    const actionResultWithReason = await actionWithReason(query, simpleReason);
   } else {
     console.log("-----------------> action without reason");
     const actionResult = await action(query);
