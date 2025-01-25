@@ -1,0 +1,33 @@
+{
+  "name": "reasoner",
+  "version": "1.0.0",
+  "description": "using reason token to enhance all the other models",
+  "main": "dist/index.js",
+  "repository": "git+ssh://git@github.com/eric8810/reasoner.git",
+  "author": "eric8810",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch --no-warnings=DEP0040 src/index.ts",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/eric8810/reasoner/issues"
+  },
+  "homepage": "https://github.com/eric8810/reasoner#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "openai": "^4.80.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
